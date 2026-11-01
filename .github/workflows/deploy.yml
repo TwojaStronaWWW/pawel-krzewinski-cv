@@ -60,7 +60,7 @@ jobs:
         run: npm run build:pdf
 
       - name: 2.5 Zapisanie pliku PDF jako artefakt wydania (GitHub Artifact)
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: Pawel_Krzewinski_CV-PDF
           path: dist/Pawel_Krzewinski_CV.pdf
