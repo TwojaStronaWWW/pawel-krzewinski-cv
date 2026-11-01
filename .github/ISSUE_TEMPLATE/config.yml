@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 📘 Dokumentacja Blueprintu (_site-template)
+    url: https://github.com/TwojaStronaWWW/_site-template/blob/main/BLUEPRINT.md
+    about: Sprawdź standardy inżynieryjne i instrukcję wdrożenia szablonu.

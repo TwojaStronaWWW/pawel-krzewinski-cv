@@ -1,0 +1,29 @@
+{
+  "name": "moje-cv",
+  "version": "1.0.0",
+  "description": "Oficjalne CV i Portfolio Krzysztofa Początka - Specjalista IT & Wdrożeniowiec",
+  "private": true,
+  "scripts": {
+    "test": "node --test tests/**/*.test.js",
+    "test:unit": "node --test tests/unit/*.test.js",
+    "test:watch": "node --test --watch tests/**/*.test.js",
+    "test:coverage": "node --test --experimental-test-coverage tests/**/*.test.js",
+    "build:pdf": "node scripts/generate-pdf.js",
+    "serve": "node scripts/serve.js",
+    "dev": "node scripts/serve.js",
+    "check:syntax": "node --check assets/js/main.js && node --check scripts/serve.js && node --check scripts/generate-pdf.js",
+    "check": "npm run check:syntax && npm test",
+    "prepare": "git config core.hooksPath .githooks || true"
+  },
+  "keywords": [
+    "cv",
+    "portfolio",
+    "it-specialist",
+    "iso27001",
+    "itil4",
+    "amms",
+    "kssomed"
+  ],
+  "author": "Krzysztof Początek",
+  "license": "UNLICENSED"
+}

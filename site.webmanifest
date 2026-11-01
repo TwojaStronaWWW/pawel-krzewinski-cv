@@ -1,0 +1,16 @@
+{
+  "name": "Krzysztof Początek – Specjalista IT & Wdrożeniowiec | CV Portfolio",
+  "short_name": "K. Początek CV",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f8f9fa",
+  "theme_color": "#005b82",
+  "description": "Oficjalne interaktywne CV i portfolio IT Krzysztofa Początka: AMMS, KS-SOMED, Audytor ISO/IEC 27001, ITIL 4, Cisco CCNA, C# .NET.",
+  "icons": [
+    {
+      "src": "assets/images/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

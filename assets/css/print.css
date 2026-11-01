@@ -1,0 +1,254 @@
+/* === PRINT – Krzysztof Początek CV ===
+ * Nadpisujemy główny main.css (display:grid) zachowując layout grid, ale ze skalą print.
+ * !important tam gdzie main.css musi zostać nadpisany.
+ */
+
+*,
+*::before,
+*::after {
+	-webkit-print-color-adjust: exact;
+	print-color-adjust: exact;
+	box-sizing: border-box;
+}
+
+@page {
+	margin: 0;
+	size: A4 portrait;
+}
+
+:root {
+	--color-primary: #005b82;
+	--color-text-dark: #1a1a1a;
+	--color-text-light: #555;
+	--color-text-muted: #888;
+	--color-bg-light: #f8f9fa;
+	--color-white: #ffffff;
+}
+
+body {
+	margin: 0;
+	padding: 0;
+	background: white;
+	font-family: 'Montserrat', sans-serif;
+	font-size: 10.5px;
+	line-height: 1.5;
+}
+
+/* Niebieskie tło sidebara pokrywa lewą kolumnę na każdej stronie */
+body::before {
+	content: "";
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 30%;
+	background: var(--color-primary);
+	-webkit-print-color-adjust: exact;
+	print-color-adjust: exact;
+	z-index: -1;
+}
+
+/* ===== LAYOUT – nadpisanie grid z main.css ===== */
+.container {
+	display: grid !important;
+	grid-template-columns: 30% 70% !important;
+	width: 100% !important;
+	max-width: none !important;
+	margin: 0 !important;
+	box-shadow: none !important;
+	min-height: 0 !important;
+}
+
+/* ===== SIDEBAR ===== */
+aside {
+	background: transparent !important;
+	color: var(--color-white) !important;
+	padding: 20px 14px 20px 18px !important;
+	font-size: 10px;
+	display: block !important;
+}
+
+aside header {
+	margin-bottom: 10px;
+	text-align: center !important;
+}
+
+.profile-photo {
+	width: 80px !important;
+	height: auto !important;
+	aspect-ratio: 4 / 5 !important;
+	border-radius: 6px !important;
+	object-fit: cover !important;
+	object-position: center top !important;
+	display: block !important;
+	margin: 0 auto 6px !important;
+	border: 1.5px solid rgba(255, 255, 255, 0.9) !important;
+}
+
+aside h1 {
+	font-size: 17px !important;
+	margin-bottom: 4px !important;
+	color: var(--color-white) !important;
+	line-height: 1.2;
+}
+
+aside .occupation {
+	font-size: 8px !important;
+	line-height: 1.4;
+	opacity: 0.95;
+	color: var(--color-white) !important;
+}
+
+aside h2 {
+	font-size: 10.5px !important;
+	font-weight: 700;
+	border-bottom: 1px solid rgba(255,255,255,0.7) !important;
+	padding-bottom: 3px !important;
+	margin: 12px 0 6px !important;
+	color: var(--color-white) !important;
+}
+
+aside ul {
+	list-style: none !important;
+	margin: 0 !important;
+	padding: 0 !important;
+}
+
+aside li {
+	margin-bottom: 4px !important;
+	padding-left: 12px !important;
+	position: relative;
+	font-size: 10px !important;
+	line-height: 1.4;
+	color: var(--color-white) !important;
+}
+
+aside li::before {
+	content: '▸';
+	position: absolute;
+	left: 0;
+	color: var(--color-white) !important;
+}
+
+aside a {
+	color: var(--color-white) !important;
+	text-decoration: none !important;
+}
+
+aside section {
+	page-break-inside: avoid;
+}
+
+/* ===== MAIN ===== */
+main {
+	background: white !important;
+	padding: 20px 18px 14px 24px !important;
+	font-size: 10.5px;
+	color: var(--color-text-dark);
+}
+
+main p {
+	margin-bottom: 8px !important;
+}
+
+main > p:first-child {
+	font-size: 10.5px;
+	line-height: 1.5;
+	margin-bottom: 10px !important;
+	page-break-after: avoid;
+}
+
+main h2 {
+	color: var(--color-primary) !important;
+	font-size: 12.5px !important;
+	font-weight: 700;
+	border-bottom: 1.5px solid var(--color-primary) !important;
+	padding-bottom: 2px !important;
+	margin: 13px 0 6px !important;
+	page-break-after: avoid;
+}
+
+main h2:first-of-type {
+	margin-top: 0 !important;
+}
+
+main h3 {
+	font-size: 11px !important;
+	font-weight: 700;
+	margin: 7px 0 2px !important;
+	color: var(--color-text-dark);
+	page-break-after: avoid;
+}
+
+main .time {
+	font-size: 9px !important;
+	color: var(--color-text-muted) !important;
+	margin-bottom: 3px !important;
+	page-break-after: avoid;
+}
+
+main .accent {
+	font-style: italic;
+	font-weight: normal;
+	color: var(--color-text-light) !important;
+}
+
+main ul {
+	list-style: disc !important;
+	padding-left: 16px !important;
+	margin-bottom: 8px !important;
+}
+
+main li {
+	font-size: 10px;
+	line-height: 1.38;
+	margin-bottom: 2px !important;
+	color: var(--color-text-dark);
+}
+
+main a {
+	color: var(--color-primary) !important;
+	text-decoration: none !important;
+}
+
+article {
+	page-break-inside: avoid;
+	margin-bottom: 6px;
+}
+
+/* Wymuszenie strony 2 */
+.page-break-before {
+	page-break-before: always;
+	padding-top: 10px;
+}
+
+/* Projekty */
+.projects-list {
+	list-style: disc !important;
+	padding-left: 16px !important;
+	margin: 2px 0 4px !important;
+}
+
+.projects-list li {
+	font-size: 10px;
+	line-height: 1.4;
+	margin-bottom: 3px !important;
+}
+
+/* RODO */
+.gdpr {
+	font-size: 8px !important;
+	color: #666 !important;
+	margin-top: 14px !important;
+	padding-top: 8px !important;
+	border-top: 1px solid #ccc !important;
+	page-break-inside: avoid;
+	background: transparent !important;
+}
+
+/* Ukrycie elementów interaktywnych */
+button,
+.toggle-menu,
+.btn-print {
+	display: none !important;
+}

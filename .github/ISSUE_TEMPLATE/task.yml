@@ -1,0 +1,62 @@
+name: 🎯 Nowe Zadanie (Task)
+description: Zgłoszenie zadania deweloperskiego, aktualizacji CV lub refaktoryzacji
+title: "[TASK] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Wypełnij poniższy szablon, aby zaplanować nowe zadanie.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Obszar techniczny
+      options:
+        - "Treść CV & Optymalizacja ATS"
+        - "Frontend / UI / CSS Tokens"
+        - "Wydruk A4 & Kompilator PDF"
+        - "CI/CD & DevOps"
+        - "SEO, A11y & Schema.org"
+        - "Dług techniczny & Refaktoryzacja"
+    validations:
+      required: true
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priorytet
+      options:
+        - "CRITICAL 🔴"
+        - "HIGH 🟠"
+        - "MEDIUM 🟡"
+        - "LOW 🟢"
+    validations:
+      required: true
+  - type: textarea
+    id: description
+    attributes:
+      label: Opis zadania i cel biznesowy
+      description: Co dokładnie ma zostać zrobione i jaki jest rezultat?
+      placeholder: Opisz kontekst i uzasadnienie zadania...
+    validations:
+      required: true
+  - type: textarea
+    id: implementation_steps
+    attributes:
+      label: Kroki implementacji
+      value: |
+        1. 
+        2. 
+        3. 
+    validations:
+      required: true
+  - type: textarea
+    id: dod
+    attributes:
+      label: Kryteria Akceptacji (Definition of Done)
+      value: |
+        - [ ] Kod przeszedł walidację testów (`npm run check`)
+        - [ ] Zachowano nienaruszony układ wydruku A4 (`npm run build:pdf`)
+        - [ ] Spełniony próg Lighthouse CI 90+
+        - [ ] Brak nowych zewnętrznych zależności (Zero-Dependency)
+    validations:
+      required: true

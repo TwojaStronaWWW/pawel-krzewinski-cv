@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+# Git Pre-commit Hook dla repozytorium Moje-CV
+# Wzorowany na standardach jakościowych projektu Gal Anonim.
+# Uruchamia sprawdzenie składni oraz wszystkie testy jednostkowe przed zatwierdzeniem zmian.
+
+set -e
+
+echo "🔍 [pre-commit] Uruchamianie lokalnej bramy jakościowej (Quality Gate)..."
+
+# 1. Blokada przypadkowego commitowania sekretów (.env, config/secrets.php, .htpasswd)
+if git diff --cached --name-only | grep -E "(\.env|config/secrets\.php|\.htpasswd)$"; then
+  echo "❌ BŁĄD: Wykryto plik z wrażliwymi sekretami w paczce do zatwierdzenia!"
+  echo "Usuń plik z indeksu poleceniem: git reset HEAD <plik>"
+  exit 1
+fi
+
+# 2. Uruchomienie pełnego zestawu testów i walidacji
+npm run check
+
+echo "✅ [pre-commit] Wszystkie testy przeszły pomyślnie! Zezwolono na commit."

@@ -1,0 +1,311 @@
+/* === CSS Variables === */
+:root {
+	--color-primary: #005b82;
+	--color-primary-dark: #004362;
+	--color-text-dark: #1a1a1a;
+	--color-text-light: #555;
+	--color-text-muted: #888;
+	--color-bg-light: #f8f9fa;
+	--color-white: #ffffff;
+	--font-main: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+	--sidebar-width: 320px;
+	--spacing-xs: 5px;
+	--spacing-sm: 10px;
+	--spacing-md: 20px;
+	--spacing-lg: 30px;
+}
+
+/* === Reset & Base === */
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	font-family: var(--font-main);
+	font-size: 14px;
+	color: var(--color-text-dark);
+	line-height: 1.5;
+}
+
+.container {
+	display: grid;
+	grid-template-columns: var(--sidebar-width) 1fr;
+	max-width: 1100px;
+	margin: var(--spacing-md) auto;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	min-height: 100vh;
+}
+
+/* === Left Panel === */
+aside {
+	background: var(--color-primary);
+	color: var(--color-white);
+	padding: var(--spacing-lg) var(--spacing-md);
+}
+
+aside header {
+	margin-bottom: var(--spacing-lg);
+	text-align: center;
+}
+
+.profile-photo {
+	width: 180px;
+	max-width: 85%;
+	height: auto;
+	aspect-ratio: 4 / 5;
+	border-radius: 12px;
+	object-fit: cover;
+	object-position: center top;
+	display: block;
+	margin: 0 auto var(--spacing-md);
+	border: 3px solid rgba(255, 255, 255, 0.9);
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+aside h1 {
+	font-size: 24px;
+	margin-bottom: var(--spacing-xs);
+}
+
+aside .occupation {
+	font-size: 18px;
+	opacity: 0.95;
+}
+
+aside h2 {
+	font-size: 16px;
+	border-bottom: 1px solid var(--color-white);
+	padding-bottom: var(--spacing-xs);
+	margin: 25px 0 var(--spacing-sm);
+}
+
+aside ul {
+	list-style: none;
+}
+
+aside li {
+	margin-bottom: var(--spacing-sm);
+	padding-left: 15px;
+	position: relative;
+}
+
+aside li::before {
+	content: '▸';
+	position: absolute;
+	left: 0;
+}
+
+aside a {
+	color: var(--color-white);
+	text-decoration: none;
+	transition: opacity 0.2s;
+}
+
+aside a:hover,
+aside a:focus {
+	opacity: 0.8;
+	text-decoration: underline;
+}
+
+/* === Right Panel === */
+main {
+	background: var(--color-bg-light);
+	padding: 40px;
+}
+
+main p {
+	margin-bottom: var(--spacing-md);
+}
+
+main h2 {
+	color: var(--color-primary);
+	font-size: 18px;
+	border-bottom: 2px solid var(--color-primary);
+	padding-bottom: 4px;
+	margin: var(--spacing-lg) 0 15px;
+}
+
+main h2:first-of-type {
+	margin-top: 0;
+}
+
+main h3 {
+	font-size: 15px;
+	margin: 15px 0 var(--spacing-xs);
+}
+
+main .time {
+	font-size: 13px;
+	color: var(--color-text-muted);
+	margin-bottom: var(--spacing-sm);
+}
+
+main .accent {
+	font-style: italic;
+	font-weight: normal;
+	color: var(--color-text-light);
+}
+
+main ul {
+	list-style: disc;
+	padding-left: var(--spacing-md);
+	margin-bottom: var(--spacing-md);
+}
+
+main li {
+	margin-bottom: var(--spacing-xs);
+}
+
+main a {
+	color: var(--color-primary);
+	text-decoration: none;
+	transition: color 0.2s;
+}
+
+main a:hover,
+main a:focus {
+	color: var(--color-primary-dark);
+	text-decoration: underline;
+}
+
+.projects-list li {
+	margin-bottom: var(--spacing-sm);
+}
+
+.gdpr {
+	font-size: 10px;
+	margin: var(--spacing-lg) 0 var(--spacing-md);
+	color: #666;
+}
+
+button {
+	background: var(--color-primary);
+	color: var(--color-white);
+	border: none;
+	padding: 12px 24px;
+	font-family: inherit;
+	font-size: 16px;
+	font-weight: 700;
+	cursor: pointer;
+	border-radius: 4px;
+	display: block;
+	margin: 0 auto;
+	transition:
+		background 0.3s,
+		transform 0.1s;
+}
+
+button:hover {
+	background: var(--color-primary-dark);
+}
+
+button:active {
+	transform: scale(0.98);
+}
+
+button:focus {
+	outline: 2px solid var(--color-primary);
+	outline-offset: 2px;
+}
+
+.toggle-menu {
+	display: none;
+	width: 100%;
+	margin-bottom: var(--spacing-sm);
+}
+
+/* === Unified Print Buttons === */
+.btn-print {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	font-family: inherit;
+	font-size: 13px;
+	font-weight: 700;
+	cursor: pointer;
+	border-radius: 25px;
+	padding: 10px 22px;
+	width: fit-content;
+	transition: background 0.2s, color 0.2s, border-color 0.2s, transform 0.15s, box-shadow 0.2s;
+}
+
+.btn-print svg {
+	flex-shrink: 0;
+	transition: stroke 0.2s;
+}
+
+/* Wariant w sidebarze (pod danymi kontaktowymi) */
+.sidebar-print-btn {
+	background: var(--color-white);
+	color: var(--color-primary);
+	border: 2px solid var(--color-white);
+	margin: 16px auto 0;
+	display: flex;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.sidebar-print-btn:hover {
+	background: rgba(255, 255, 255, 0.9);
+	color: var(--color-primary-dark);
+	border-color: rgba(255, 255, 255, 0.9);
+	transform: translateY(-2px);
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+.sidebar-print-btn:active {
+	transform: translateY(0);
+}
+
+/* Wariant na dole strony (w sekcji głównej) */
+.main-print-btn {
+	background: var(--color-white);
+	color: var(--color-primary);
+	border: 2px solid var(--color-primary);
+	margin: 24px auto 0;
+	display: flex;
+	box-shadow: 0 4px 12px rgba(0, 91, 130, 0.15);
+}
+
+.main-print-btn:hover {
+	background: var(--color-primary);
+	color: var(--color-white);
+	border-color: var(--color-primary);
+	transform: translateY(-2px);
+	box-shadow: 0 6px 16px rgba(0, 91, 130, 0.25);
+}
+
+.main-print-btn:active {
+	transform: translateY(0);
+}
+
+/* === Mobile === */
+@media (max-width: 900px) {
+	.container {
+		grid-template-columns: 1fr;
+	}
+
+	aside {
+		display: none;
+	}
+
+	aside.active {
+		display: block;
+	}
+
+	.toggle-menu {
+		display: block;
+	}
+
+	main {
+		padding: var(--spacing-md);
+	}
+
+	.gdpr {
+		padding-left: var(--spacing-md);
+		padding-right: var(--spacing-md);
+	}
+}
+

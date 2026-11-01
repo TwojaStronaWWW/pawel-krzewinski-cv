@@ -1,0 +1,14 @@
+# Krzysztof Początek — Specjalista IT / Administrator Systemów Medycznych HIS (AMMS, KS-SOMED) & DevOps
+
+> Oficjalne interaktywne CV i portfolio inżynierskie Krzysztofa Początka (https://krzysztofpoczatek.pl). Specjalizacja: utrzymanie systemów szpitalnych HIS (Asseco AMMS, Kamsoft KS-SOMED), integracje P1 / HL7 / EDM, bezpieczeństwo ISO/IEC 27001, infrastruktura Linux/Windows Server, Docker, Prometheus/Grafana oraz architektura systemów AI RAG.
+
+## Kluczowe Kompetencje
+- **Systemy Medyczne (HIS/PACS/P1):** Asseco AMMS, Kamsoft KS-SOMED, e-Zdrowie P1 (e-Recepta, e-Skierowanie, EDM, Zdarzenia Medyczne), rozliczenia NFZ (SZOI/ISI, SWIAD, eWUŚ).
+- **Infrastruktura i Bezpieczeństwo (ISO 27001):** Active Directory, GPO, Windows Server, Linux (Debian/Ubuntu), Docker Compose, Cloudflare WAF/CDN, Hardening SSH/TLS, audyty bezpieczeństwa.
+- **Monitoring i Automatyzacja (DevOps & AI):** Prometheus, Grafana, Uptime Kuma, GitHub Actions CI/CD, kaskadowe routery LLM RAG (PHP/Python/C#).
+
+## Projekty Własne i Open-Source
+- [Radar P1](https://radar-p1.pages.dev): Niezależny monitor dostępności systemów e-Zdrowia (P1, eWUŚ, SZOI/NFZ, KSeF, ZUS) z procedurami ciągłości działania dla szpitali i przychodni.
+- [Gal Anonim](https://github.com/zeslownikiem/galanonim-release): Narzędzie do anonimizacji dokumentacji (RODO / ISO 27001).
+- [TwojaStronaWWW](https://twojastronawww.pl): Architektura szybkich systemów webowych i asystentów AI RAG.
+- [Kato Salsa Hub](https://katosalsahub.pl): Portal społecznościowy i encyklopedia taneczna z autorską wyszukiwarką i asystentem AI.
