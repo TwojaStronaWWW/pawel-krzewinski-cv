@@ -23,8 +23,8 @@ describe('Integralność semantyczna i SEO (index.html)', () => {
       const match = htmlContent.match(/<title>(.*?)<\/title>/i);
       assert.ok(match, 'Brak znacznika <title>');
       const title = match[1];
-      assert.ok(title.includes('Krzysztof Początek'));
-      assert.ok(title.includes('Specjalista IT') || title.includes('Wdrożeniowiec'));
+      assert.ok(title.includes('Paweł Krzewiński'));
+      assert.ok(title.includes('Gospodarki Magazynowej') || title.includes('Logistyki') || title.includes('ERP'));
     });
 
     it('powinien posiadać opis <meta name="description"> o odpowiedniej długości i ze słowami kluczowymi', () => {
@@ -32,17 +32,17 @@ describe('Integralność semantyczna i SEO (index.html)', () => {
       assert.ok(match, 'Brak znacznika meta description');
       const desc = match[1];
       assert.ok(desc.length >= 50, `Opis jest zbyt krótki (${desc.length} znaków)`);
-      assert.ok(desc.includes('AMMS') || desc.includes('KS-SOMED'));
-      assert.ok(desc.includes('ISO'));
+      assert.ok(desc.includes('Impuls EVO') || desc.includes('UDT'));
+      assert.ok(desc.includes('INTROL'));
     });
 
-    it('powinien posiadać link kanoniczny do domeny krzysztofpoczatek.pl', () => {
-      assert.match(htmlContent, /<link\s+rel="canonical"\s+href="https:\/\/krzysztofpoczatek\.pl\/?">/i);
+    it('powinien posiadać link kanoniczny do domeny pawelkrzewinski.pl', () => {
+      assert.match(htmlContent, /<link\s+rel="canonical"\s+href="https:\/\/pawelkrzewinski\.pl\/?">/i);
     });
 
     it('powinien zawierać kompletne tagi protokołu Open Graph (og:title, og:description, og:image, og:url)', () => {
       assert.match(htmlContent, /<meta\s+property="og:type"\s+content="website">/i);
-      assert.match(htmlContent, /<meta\s+property="og:url"\s+content="https:\/\/krzysztofpoczatek\.pl\/?">/i);
+      assert.match(htmlContent, /<meta\s+property="og:url"\s+content="https:\/\/pawelkrzewinski\.pl\/?">/i);
       assert.match(htmlContent, /<meta\s+property="og:title"\s+content="[^"]+">/i);
       assert.match(htmlContent, /<meta\s+property="og:description"\s+content="[^"]+">/i);
       assert.match(htmlContent, /<meta\s+property="og:image"\s+content="[^"]+og-preview\.(png|jpg)[^"]*">/i);
@@ -70,14 +70,14 @@ describe('Integralność semantyczna i SEO (index.html)', () => {
 
       assert.strictEqual(schema['@context'], 'https://schema.org');
       assert.strictEqual(schema['@type'], 'Person');
-      assert.strictEqual(schema.name, 'Krzysztof Początek');
+      assert.strictEqual(schema.name, 'Paweł Krzewiński');
       assert.ok(schema.jobTitle && schema.jobTitle.length > 5);
-      assert.strictEqual(schema.url, 'https://krzysztofpoczatek.pl');
+      assert.strictEqual(schema.url, 'https://pawelkrzewinski.pl');
       assert.ok(Array.isArray(schema.knowsAbout), 'knowsAbout musi być tablicą');
-      assert.ok(schema.knowsAbout.includes('ISO/IEC 27001'));
-      assert.ok(schema.knowsAbout.includes('ITIL 4'));
-      assert.ok(schema.knowsAbout.includes('AMMS'));
-      assert.ok(schema.knowsAbout.includes('KS-SOMED'));
+      assert.ok(schema.knowsAbout.includes('Impuls EVO'));
+      assert.ok(schema.knowsAbout.includes('UDT II WJO'));
+      assert.ok(schema.knowsAbout.includes('Gospodarka magazynowa'));
+      assert.ok(schema.knowsAbout.includes('Voice Picking'));
     });
   });
 
@@ -86,7 +86,7 @@ describe('Integralność semantyczna i SEO (index.html)', () => {
       const h1Matches = htmlContent.match(/<h1[^>]*>(.*?)<\/h1>/gi);
       assert.ok(h1Matches, 'Brak nagłówka <h1>');
       assert.strictEqual(h1Matches.length, 1, `Oczekiwano dokładnie jednego nagłówka <h1>, znaleziono: ${h1Matches.length}`);
-      assert.match(h1Matches[0], /Krzysztof Początek/i);
+      assert.match(h1Matches[0], /Paweł Krzewiński/i);
     });
 
     it('wszystkie znaczniki <img> powinny posiadać atrybuty alt, width oraz height dla CLS/a11y', () => {

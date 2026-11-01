@@ -1,5 +1,5 @@
 /**
- * Skrypt generowania oficjalnego pliku PDF dla CV Krzysztofa Początka.
+ * Skrypt generowania oficjalnego pliku PDF dla CV Pawła Krzewińskiego.
  * Wykorzystuje natywny silnik Chromium (Edge na Windows, Chrome/Chromium na Linux w CI/CD).
  * Zapewnia 100% zgodności ze stylami druku A4 z assets/css/print.css.
  */
@@ -13,7 +13,7 @@ const { pathToFileURL } = require('node:url');
 const ROOT_DIR = path.resolve(__dirname, '..');
 const INPUT_HTML = path.join(ROOT_DIR, 'index.html');
 const OUTPUT_DIR = path.join(ROOT_DIR, 'dist');
-const OUTPUT_PDF = path.join(OUTPUT_DIR, 'Krzysztof_Poczatek_CV.pdf');
+const OUTPUT_PDF = path.join(OUTPUT_DIR, 'Pawel_Krzewinski_CV.pdf');
 
 function findBrowserBinary(platform = process.platform, env = process.env, whichExecutor = null) {
   if (env.CHROME_PATH && fs.existsSync(env.CHROME_PATH)) {

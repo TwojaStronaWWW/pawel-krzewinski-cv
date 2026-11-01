@@ -29,7 +29,7 @@ describe('Generator oficjalnego PDF (scripts/generate-pdf.js)', () => {
   });
 
   it('powinien definiować domyślną ścieżkę wyjściową OUTPUT_PDF w katalogu dist', () => {
-    assert.ok(OUTPUT_PDF.endsWith('Krzysztof_Poczatek_CV.pdf'));
+    assert.ok(OUTPUT_PDF.endsWith('Pawel_Krzewinski_CV.pdf'));
     assert.ok(OUTPUT_PDF.includes('dist'));
   });
 

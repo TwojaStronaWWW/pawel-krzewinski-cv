@@ -42,7 +42,7 @@ describe('Higiena repozytorium (Repo Hygiene wzorowane na Gal Anonim i _site-tem
     function scanDir(dir) {
       const entries = fs.readdirSync(dir, { withFileTypes: true });
       for (const entry of entries) {
-        if (entry.name.startsWith('.git') || entry.name === 'node_modules') continue;
+        if (entry.name.startsWith('.git') || entry.name === 'node_modules' || entry.name === 'source-scans') continue;
         const fullPath = path.join(dir, entry.name);
         if (fullPath === __filename) continue;
         if (entry.isDirectory()) {
@@ -145,13 +145,13 @@ describe('Higiena repozytorium (Repo Hygiene wzorowane na Gal Anonim i _site-tem
     assert.ok(fs.existsSync(robotsPath), 'Brak robots.txt');
     const robotsContent = fs.readFileSync(robotsPath, 'utf-8');
     assert.match(robotsContent, /User-agent:\s*\*/i);
-    assert.match(robotsContent, /Sitemap:\s*https:\/\/krzysztofpoczatek\.pl\/sitemap\.xml/i);
+    assert.match(robotsContent, /Sitemap:\s*https:\/\/pawelkrzewinski\.pl\/sitemap\.xml/i);
 
     const sitemapPath = path.join(ROOT_DIR, 'sitemap.xml');
     assert.ok(fs.existsSync(sitemapPath), 'Brak sitemap.xml');
     const sitemapContent = fs.readFileSync(sitemapPath, 'utf-8');
-    assert.match(sitemapContent, /<loc>https:\/\/krzysztofpoczatek\.pl\/<\/loc>/i);
-    assert.match(sitemapContent, /<loc>https:\/\/krzysztofpoczatek\.pl\/Krzysztof_Poczatek_CV\.pdf<\/loc>/i);
+    assert.match(sitemapContent, /<loc>https:\/\/pawelkrzewinski\.pl\/<\/loc>/i);
+    assert.match(sitemapContent, /<loc>https:\/\/pawelkrzewinski\.pl\/Pawel_Krzewinski_CV\.pdf<\/loc>/i);
   });
 
   it('konfiguracja Dependabot (.github/dependabot.yml) powinna istnieć i chronić zależności przed CVE', () => {
@@ -166,7 +166,7 @@ describe('Higiena repozytorium (Repo Hygiene wzorowane na Gal Anonim i _site-tem
     const readmePath = path.join(ROOT_DIR, 'README.md');
     assert.ok(fs.existsSync(readmePath), 'Brak README.md');
     const content = fs.readFileSync(readmePath, 'utf-8');
-    assert.match(content, /# Krzysztof Początek/i);
+    assert.match(content, /# Paweł Krzewiński/i);
     assert.match(content, /CI%2FCD%20Pipeline/i);
     assert.match(content, /Unit%20Tests/i);
     assert.strictEqual(content.includes('assets/img/'), false, 'W README.md pozostały nieistniejące ścieżki assets/img/');

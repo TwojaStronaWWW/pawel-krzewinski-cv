@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Allow: /llms.txt
 
-Sitemap: https://krzysztofpoczatek.pl/sitemap.xml
+Sitemap: https://pawelkrzewinski.pl/sitemap.xml
