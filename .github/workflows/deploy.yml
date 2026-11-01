@@ -99,7 +99,7 @@ jobs:
           npm run build:pdf
 
       - name: 3.4 Bezpieczny transfer SFTP na serwer hostingowy LH
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
+        uses: wlixcc/SFTP-Deploy-Action@v1.2.6
         with:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
