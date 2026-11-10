@@ -1,0 +1,35 @@
+title = "Gitleaks Secret Protection Configuration (pawel-krzewinski-cv)"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "pesel-leak-guard"
+description = "Wykryto potencjalny numer PESEL oznaczony jawnie w kodzie (RODO Guard)"
+regex = '''(?i)\bpesel\s*[:=]\s*['"]?[0-9]{11}['"]?'''
+tags = ["pii", "rodo", "pesel"]
+
+[[rules]]
+id = "google-gemini-api-key"
+description = "Klucz API Google / Gemini (AIza...)"
+regex = '''AIza[0-9A-Za-z_-]{35}'''
+tags = ["api-key", "gemini", "gcp"]
+
+[[rules]]
+id = "anthropic-api-key"
+description = "Klucz API Anthropic Claude (sk-ant-...)"
+regex = '''sk-ant-[0-9A-Za-z_-]{20,}'''
+tags = ["api-key", "anthropic"]
+
+[allowlist]
+description = "Wykluczenie bezpiecznych zasobów testowych i binarnych"
+paths = [
+  '''^tests/''',
+  '''^source-scans/''',
+  '''^dist/''',
+  '''\.pdf$''',
+  '''\.png$''',
+  '''\.jpg$''',
+  '''\.webp$''',
+  '''\.svg$'''
+]

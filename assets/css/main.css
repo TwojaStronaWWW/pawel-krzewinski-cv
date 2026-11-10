@@ -1,5 +1,6 @@
-/* === CSS Variables === */
+/* === CSS Variables ([REF-03] Vanilla CSS Baseline) === */
 :root {
+	color-scheme: light dark;
 	--color-primary: #005b82;
 	--color-primary-dark: #004362;
 	--color-text-dark: #1a1a1a;
@@ -15,7 +16,17 @@
 	--spacing-lg: 30px;
 }
 
+@media (prefers-reduced-motion: no-preference) {
+	@view-transition {
+		navigation: auto;
+	}
+}
+
 /* === Reset & Base === */
+html {
+	scrollbar-gutter: stable;
+}
+
 * {
 	margin: 0;
 	padding: 0;
@@ -26,7 +37,47 @@ body {
 	font-family: var(--font-main);
 	font-size: 14px;
 	color: var(--color-text-dark);
+	background-color: var(--color-white);
 	line-height: 1.5;
+}
+
+h1,
+h2,
+h3 {
+	text-wrap: balance;
+}
+
+p {
+	text-wrap: pretty;
+}
+
+/* === [REF-04] WCAG 2.2 AA Skip Link & Focus Visible === */
+.skip-link {
+	position: absolute;
+	top: -100px;
+	left: 12px;
+	z-index: 1000;
+	background: var(--color-primary-dark);
+	color: var(--color-white);
+	padding: 10px 18px;
+	border-radius: 4px;
+	font-weight: 700;
+	text-decoration: none;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+	transition: top 0.15s ease-in-out;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+	top: 12px;
+	outline: 3px solid var(--color-white);
+	outline-offset: 2px;
+}
+
+a:focus-visible,
+button:focus-visible {
+	outline: 2px solid var(--color-primary);
+	outline-offset: 3px;
 }
 
 .container {

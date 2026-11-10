@@ -7,6 +7,9 @@ on:
     branches: [ main ]
   workflow_dispatch:
 
+permissions:
+  contents: read
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
@@ -52,7 +55,7 @@ jobs:
       - name: 2.3 Przygotowanie katalogu dist
         run: |
           mkdir -p dist
-          cp index.html robots.txt sitemap.xml site.webmanifest llms.txt dist/
+          cp .htaccess index.html robots.txt sitemap.xml site.webmanifest llms.txt dist/
           cp -r .well-known dist/
           cp -r assets dist/
 
@@ -93,12 +96,34 @@ jobs:
       - name: 3.3 Przygotowanie paczki produkcyjnej (HTML + SEO + PWA + Assets + PDF)
         run: |
           mkdir -p dist
-          cp index.html robots.txt sitemap.xml site.webmanifest llms.txt dist/
+          cp .htaccess index.html robots.txt sitemap.xml site.webmanifest llms.txt dist/
           cp -r .well-known dist/
           cp -r assets dist/
           npm run build:pdf
 
-      - name: 3.4 Bezpieczny transfer SFTP na serwer hostingowy LH
+      - name: 3.4 Weryfikacja ścieżki docelowej SFTP (Fail-Closed Production Guard)
+        env:
+          TARGET_PATH: ${{ secrets.SFTP_REMOTE_PATH }}
+        run: |
+          set -euo pipefail
+          if [ -z "${TARGET_PATH:-}" ]; then
+            echo "::error::Sekret SFTP_REMOTE_PATH jest pusty! Wdrożenie zatrzymane (Fail-Closed)."
+            exit 1
+          fi
+          if printf '%s' "$TARGET_PATH" | grep -qiE '(krzysztofpoczatek\.pl|\.\.|^/$)'; then
+            echo "::error::Wykryto zablokowaną lub niebezpieczną ścieżkę w SFTP_REMOTE_PATH! Wdrożenie zatrzymane."
+            exit 1
+          fi
+          case "$TARGET_PATH" in
+            /home/*) ;;
+            *)
+              echo "::error::SFTP_REMOTE_PATH musi wskazywać bezpieczny katalog na serwerze (/home/...)."
+              exit 1
+              ;;
+          esac
+          echo "✅ Zweryfikowano docelową ścieżkę wdrożenia SFTP."
+
+      - name: 3.5 Bezpieczny transfer SFTP na serwer hostingowy LH
         uses: wlixcc/SFTP-Deploy-Action@v1.2.4
         with:
           username: ${{ secrets.FTP_USERNAME }}
@@ -106,17 +131,17 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           port: ${{ secrets.FTP_PORT }}
           local_path: './dist/*'
-          remote_path: '/home/platne/serwer417204/public_html/krzysztofpoczatek.pl'
+          remote_path: ${{ secrets.SFTP_REMOTE_PATH }}
           sftpArgs: '-o ConnectTimeout=60'
 
-      - name: 3.5 Czyszczenie cache Cloudflare CDN (opcjonalnie)
+      - name: 3.6 Czyszczenie cache Cloudflare CDN (opcjonalnie)
         if: env.CF_ZONE != '' && env.CF_TOKEN != ''
         env:
           CF_ZONE: ${{ secrets.CLOUDFLARE_ZONE }}
           CF_TOKEN: ${{ secrets.CLOUDFLARE_TOKEN }}
         run: |
           echo "Purging Cloudflare edge cache..."
-          curl -s -X POST "https://api.cloudflare.com/client/v4/zones/$CF_ZONE/purge_cache" \
+          curl -fsS --proto '=https' --max-time 20 -X POST "https://api.cloudflare.com/client/v4/zones/$CF_ZONE/purge_cache" \
             -H "Authorization: Bearer $CF_TOKEN" \
             -H "Content-Type: application/json" \
             --data '{"purge_everything":true}'

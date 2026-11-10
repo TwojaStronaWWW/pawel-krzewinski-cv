@@ -1,4 +1,4 @@
-/* === PRINT – Krzysztof Początek CV ===
+/* === PRINT – Paweł Krzewiński CV ===
  * Nadpisujemy główny main.css (display:grid) zachowując layout grid, ale ze skalą print.
  * !important tam gdzie main.css musi zostać nadpisany.
  */
@@ -249,6 +249,7 @@ article {
 /* Ukrycie elementów interaktywnych */
 button,
 .toggle-menu,
-.btn-print {
+.btn-print,
+.skip-link {
 	display: none !important;
 }

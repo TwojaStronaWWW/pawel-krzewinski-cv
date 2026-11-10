@@ -5,10 +5,21 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Paweł Krzewiński – Specjalista ds. Dystrybucji Wydawniczej, Księgarni i Gospodarki Magazynowej (ERP) | CV</title>
+
+  <!-- [REF-02] Capo.js Optimal Head Order: preconnect & stylesheets przed meta SEO i JSON-LD -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/main.css?v=1.1">
+  <link rel="stylesheet" href="assets/css/print.css?v=1.1" media="print">
+
   <meta name="description"
     content="Specjalista ds. Dystrybucji Wydawniczej, Logistyki Księgarskiej i Gospodarki Magazynowej z 18-letnim doświadczeniem (INTROL, Consorfrut). Pasjonat literatury pięknej i fotografii cyfrowej. Obsługa Subiekt i ERP Impuls EVO, fakturowanie, e-commerce, inwentaryzacja ISBN/EAN, UDT II WJO.">
   <meta name="author" content="Paweł Krzewiński">
+  <meta name="theme-color" content="#005b82">
   <link rel="canonical" href="https://pawelkrzewinski.pl/">
+  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
+  <link rel="manifest" href="site.webmanifest">
 
   <!-- Open Graph / Facebook / Messenger / LinkedIn / WhatsApp -->
   <meta property="og:type" content="website">
@@ -30,14 +41,6 @@
   <meta name="twitter:title" content="Paweł Krzewiński – Specjalista ds. Dystrybucji Wydawniczej, Księgarni i Logistyki">
   <meta name="twitter:description" content="Pasjonat literatury pięknej z ponad 18-letnim doświadczeniem w gospodarce magazynowej, ekspedycji zamówień, fakturowaniu (Subiekt, Impuls EVO), księgowości (128h MEN) i fotografii cyfrowej.">
   <meta name="twitter:image" content="https://pawelkrzewinski.pl/assets/images/og-preview.png?v=1">
-  <link rel="icon" type="image/svg+xml" href="assets/images/favicon.svg">
-  <link rel="manifest" href="site.webmanifest">
-  <meta name="theme-color" content="#005b82">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/main.css?v=1.1">
-  <link rel="stylesheet" href="assets/css/print.css?v=1.1" media="print">
 
   <!-- Dane strukturalne Schema.org -->
   <script type="application/ld+json">
@@ -76,6 +79,7 @@
 </head>
 
 <body>
+  <a href="#main-content" class="skip-link">Przejdź do głównej treści CV</a>
   <button type="button" class="toggle-menu" id="toggleBtn" aria-expanded="false" aria-controls="sidebar">
     Menu
   </button>
@@ -97,7 +101,7 @@
           <li>Dostępność: Stacjonarnie (Katowice)</li>
           <li>Współpraca: UoP / Zlecenie / B2B</li>
         </ul>
-        <button type="button" class="btn-print sidebar-print-btn" aria-label="Pobierz CV w formacie PDF lub wydrukuj">
+        <button type="button" class="btn-print sidebar-print-btn" data-action="print" aria-label="Pobierz CV w formacie PDF lub wydrukuj">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
             <path d="M6 9V2h12v7"></path>
             <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
@@ -152,7 +156,7 @@
       </section>
     </aside>
 
-    <main>
+    <main id="main-content">
       <p>
         Wieloletni pasjonat <strong>literatury pięknej</strong> oraz specjalista ds. gospodarki magazynowej, dystrybucji i administracji handlowej z ponad 18-letnim doświadczeniem zawodowym. Łączę doskonałą orientację na rynku książki i wysoką kulturę osobistą z twardymi kompetencjami operacyjnymi niezbędnymi w nowoczesnym <strong>wydawnictwie, księgarni lub antykwariacie</strong>: praktyczną obsługą programów handlowo-magazynowych (<strong>InsERT Subiekt</strong>, <strong>BPSC Impuls EVO</strong>), fakturowaniem, inwentaryzacją po kodach kreskowych (<strong>EAN / ISBN</strong>), obsługą zamówień internetowych (e-commerce) oraz certyfikowanym przygotowaniem z zakresu <strong>księgowości (128 godz. MEN)</strong>, kompetencji cyfrowych (<strong>ECCC – Informacja 100%</strong>) i <strong>fotografii cyfrowej</strong> (zdjęcia okładek i nowości wydawniczych).
       </p>
@@ -248,7 +252,7 @@
         Wyrażam zgodę na przetwarzanie moich danych osobowych zawartych w niniejszym dokumencie dla potrzeb niezbędnych do realizacji obecnego oraz przyszłych procesów rekrutacyjnych zgodnie z Rozporządzeniem Parlamentu Europejskiego i Rady (UE) 2016/679 z dnia 27 kwietnia 2016 r. (RODO).
       </p>
 
-      <button type="button" id="printBtn" class="btn-print main-print-btn" aria-label="Pobierz CV w formacie PDF lub wydrukuj">
+      <button type="button" id="printBtn" class="btn-print main-print-btn" data-action="print" aria-label="Pobierz CV w formacie PDF lub wydrukuj">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="M6 9V2h12v7"></path>
           <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
@@ -259,7 +263,7 @@
     </main>
   </div>
 
-  <script src="assets/js/main.js?v=1.1"></script>
+  <script src="assets/js/main.js?v=1.1" defer></script>
   <!-- [REF-02] Speculation Rules API (Web Platform Baseline): natychmiastowa nawigacja 0 ms bez SPA przy najechaniu kursorem -->
   <script type="speculationrules">
   {

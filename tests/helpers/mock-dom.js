@@ -115,6 +115,10 @@ class MockDocument {
         if (sel.startsWith('.')) {
           return el.classList.contains(sel.slice(1));
         }
+        const attrMatch = sel.match(/^\[([a-zA-Z0-9_-]+)=["']?([^"'\]]+)["']?\]$/);
+        if (attrMatch) {
+          return el.getAttribute(attrMatch[1]) === attrMatch[2];
+        }
         return false;
       });
     });

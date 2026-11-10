@@ -1,6 +1,6 @@
 /**
- * Skrypt interaktywny dla CV Krzysztofa Początka
- * Obsługa mobilnego menu bocznego oraz akcji drukowania / generowania PDF.
+ * Skrypt interaktywny dla CV Pawła Krzewińskiego (pawel-krzewinski-cv)
+ * Obsługa mobilnego menu bocznego oraz akcji drukowania / generowania PDF ([data-action="print"]).
  */
 
 const MOBILE_BREAKPOINT = 900;
@@ -49,7 +49,7 @@ function initSidebar(
     }
   };
 
-  // Obsługa klawiatury (WCAG 2.1): zamykanie menu klawiszem Escape
+  // Obsługa klawiatury (WCAG 2.2): zamykanie menu klawiszem Escape
   const handleKeyDown = (e) => {
     if (e && (e.key === 'Escape' || e.key === 'Esc')) {
       closeSidebar();
@@ -86,7 +86,7 @@ function initSidebar(
 function initPrintButtons(doc = (typeof document !== 'undefined' ? document : null), win = (typeof window !== 'undefined' ? window : null)) {
   if (!doc) return [];
 
-  const printButtons = doc.querySelectorAll('.btn-print, #printBtn');
+  const printButtons = doc.querySelectorAll('[data-action="print"], .btn-print, #printBtn');
   if (!printButtons || printButtons.length === 0) return [];
 
   const registered = [];
@@ -123,4 +123,3 @@ if (typeof module !== 'undefined' && module.exports) {
     MOBILE_BREAKPOINT,
   };
 }
-

@@ -56,6 +56,34 @@ describe('Integralność semantyczna i SEO (index.html)', () => {
       assert.match(htmlContent, /<meta\s+name="twitter:description"\s+content="[^"]+">/i);
       assert.match(htmlContent, /<meta\s+name="twitter:image"\s+content="[^"]+">/i);
     });
+
+    it('[REF-02] powinien zachowywać optymalną kolejność Capo.js w <head> (charset -> viewport -> title -> preconnect -> stylesheet -> meta SEO/JSON-LD) oraz Speculation Rules z wykluczeniem /api/*', () => {
+      const idxCharset = htmlContent.indexOf('<meta charset=');
+      const idxViewport = htmlContent.indexOf('<meta name="viewport"');
+      const idxTitle = htmlContent.indexOf('<title>');
+      const idxPreconnect = htmlContent.indexOf('<link rel="preconnect"');
+      const idxStylesheet = htmlContent.indexOf('<link rel="stylesheet" href="assets/css/main.css');
+      const idxDesc = htmlContent.indexOf('<meta name="description"');
+      const idxJsonLd = htmlContent.indexOf('<script type="application/ld+json">');
+
+      assert.ok(idxCharset > 0 && idxViewport > idxCharset, 'viewport musi występować po charset');
+      assert.ok(idxTitle > idxViewport, 'title musi występować po viewport');
+      assert.ok(idxPreconnect > idxTitle, 'preconnect musi występować po title');
+      assert.ok(idxStylesheet > idxPreconnect, 'stylesheet musi występować po preconnect');
+      assert.ok(idxDesc > idxStylesheet, 'meta description musi występować po arkuszach stylów');
+      assert.ok(idxJsonLd > idxDesc, 'JSON-LD musi występować po meta SEO');
+
+      assert.match(htmlContent, /<script\s+type="speculationrules">/i);
+      assert.match(htmlContent, /"href_matches":\s*"\/api\/\*"/);
+    });
+
+    it('[REF-07] powinien podpinać plik /llms.txt w sekcji <head> (rel="alternate" type="text/markdown")', () => {
+      assert.match(
+        htmlContent,
+        /<link\s+rel="alternate"\s+type="text\/markdown"\s+href="llms\.txt"/i,
+        'Brak podpięcia llms.txt w <head>'
+      );
+    });
   });
 
   describe('Strukturyzowane dane Schema.org (JSON-LD)', () => {
@@ -112,8 +140,11 @@ describe('Integralność semantyczna i SEO (index.html)', () => {
       assert.match(htmlContent, /<aside\s+id="sidebar"[^>]+aria-label="[^"]+"/i);
     });
 
-    it('powinien zawierać główny semantyczny kontener <main> oraz nie zawierać pustych odnośników (href="#")', () => {
-      assert.match(htmlContent, /<main[\s>]/i, 'Strona musi zawierać semantyczny znacznik <main>');
+    it('powinien zawierać główny semantyczny kontener <main id="main-content">, .skip-link ([REF-04]) oraz przyciski data-action="print" bez pustych odnośników (href="#")', () => {
+      assert.match(htmlContent, /<a\s+href="#main-content"\s+class="skip-link">/i, 'Brak .skip-link WCAG 2.2 AA');
+      assert.match(htmlContent, /<main\s+id="main-content"[\s>]/i, 'Strona musi zawierać <main id="main-content">');
+      const printActionButtons = htmlContent.match(/data-action="print"/gi) || [];
+      assert.ok(printActionButtons.length >= 2, 'Przyciski drukowania powinny posiadać data-action="print"');
       const emptyLinks = htmlContent.match(/href=["']#["']/gi) || [];
       assert.strictEqual(emptyLinks.length, 0, 'Wykryto puste odnośniki href="#". Użyj znaczników <button> lub pełnych kotwic #id.');
     });

@@ -85,7 +85,7 @@ function generatePdf(destinationPath = OUTPUT_PDF, options = {}) {
   }
 
   const fileUrl = pathToFileURL(inputHtml).href;
-  const tempProfileDir = fs.mkdtempSync(path.join(os.tmpdir(), 'moje-cv-pdf-'));
+  const tempProfileDir = fs.mkdtempSync(path.join(os.tmpdir(), 'pawel-cv-pdf-'));
 
   const args = [
     '--headless=new',
@@ -133,7 +133,8 @@ function generatePdf(destinationPath = OUTPUT_PDF, options = {}) {
 
 if (require.main === module) {
   try {
-    generatePdf();
+    const cliTarget = process.argv[2] || process.env.PDF_OUTPUT_PATH || OUTPUT_PDF;
+    generatePdf(cliTarget);
   } catch (err) {
     console.error(`[PDF Generator] Błąd: ${err.message}`);
     process.exit(1);

@@ -251,6 +251,18 @@ describe('Moduł UI (assets/js/main.js)', () => {
         btn.click();
       });
     });
+
+    it('powinien obsłużyć przyciski z atrybutem data-action="print" (bez onclick inline)', () => {
+      const actionBtn = new MockElement('customPrintTrigger', 'button');
+      actionBtn.setAttribute('data-action', 'print');
+      mockDoc.registerElement(actionBtn);
+
+      const registered = initPrintButtons(mockDoc, mockWin);
+      assert.strictEqual(registered.length, 1);
+
+      actionBtn.click();
+      assert.strictEqual(printCalled, 1);
+    });
   });
 
   describe('Autostart w środowisku przeglądarkowym', () => {

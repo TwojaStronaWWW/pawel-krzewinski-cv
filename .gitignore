@@ -1,8 +1,36 @@
+# Dependencies & Build Output
 node_modules/
 dist/
+coverage/
+
+# Private source scans (RODO / ISO 27001) & Working Audits
 source-scans/
-.DS_Store
-Thumbs.db
+docs/audits/
+
+# Secrets, Environment & Credentials (ISO 27001 Zero Data Leakage)
+.env
+.env.*
+!.env.example
+.env.bak*
+*.pem
+*.key
+*.pfx
+*.p12
+*.kdbx
+*.sqlite*
+*token*.json
+*credentials*.json
+.htpasswd
+
+# Temporary Browser Profiles & Editor Backups
+.chrome-*/
+*.bak
+*.tmp
+*.swp
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# OS Metadata
+.DS_Store
+Thumbs.db

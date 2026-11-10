@@ -1,8 +1,12 @@
 {
-  "name": "moje-cv",
+  "name": "pawel-krzewinski-cv",
   "version": "1.0.0",
-  "description": "Oficjalne CV i Portfolio Krzysztofa Początka - Specjalista IT & Wdrożeniowiec",
+  "description": "Oficjalne interaktywne CV i generator PDF A4 Pawła Krzewińskiego – Specjalista ds. Dystrybucji Wydawniczej, Księgarni, Logistyki i Systemów ERP",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TwojaStronaWWW/pawel-krzewinski-cv.git"
+  },
   "scripts": {
     "test": "node --test tests/**/*.test.js",
     "test:unit": "node --test tests/unit/*.test.js",
@@ -17,13 +21,15 @@
   },
   "keywords": [
     "cv",
-    "portfolio",
-    "it-specialist",
-    "iso27001",
-    "itil4",
-    "amms",
-    "kssomed"
+    "pawel-krzewinski",
+    "logistyka",
+    "gospodarka-magazynowa",
+    "wydawnictwo",
+    "ksiegarnia",
+    "erp",
+    "impuls-evo",
+    "subiekt"
   ],
-  "author": "Krzysztof Początek",
+  "author": "Paweł Krzewiński",
   "license": "UNLICENSED"
 }

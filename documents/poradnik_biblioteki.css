@@ -1,0 +1,250 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  -webkit-print-color-adjust: exact;
+  print-color-adjust: exact;
+}
+
+@page {
+  size: A4 portrait;
+  margin: 8mm 11mm 8mm 11mm;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Montserrat', sans-serif;
+  font-size: 9px;
+  line-height: 1.38;
+  color: #1a1a1a;
+  background: #ffffff;
+}
+
+.doc-header {
+  background: #005b82;
+  color: #ffffff;
+  padding: 11px 15px;
+  border-radius: 5px;
+  margin-bottom: 9px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.doc-header h1 {
+  margin: 0 0 3px 0;
+  font-size: 13.5px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.doc-header p {
+  margin: 0;
+  font-size: 8.8px;
+  opacity: 0.95;
+}
+
+.doc-header .badge {
+  background: rgba(255, 255, 255, 0.16);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  padding: 5px 9px;
+  border-radius: 4px;
+  text-align: right;
+  font-size: 8.3px;
+  line-height: 1.32;
+  white-space: nowrap;
+}
+
+h2 {
+  color: #005b82;
+  font-size: 11px;
+  font-weight: 700;
+  border-bottom: 1.5px solid #005b82;
+  padding-bottom: 2px;
+  margin: 9px 0 6px 0;
+  page-break-after: avoid;
+}
+
+.myth-box {
+  background: #eef7fb;
+  border-left: 4px solid #005b82;
+  padding: 7px 11px;
+  border-radius: 0 4px 4px 0;
+  margin-bottom: 8px;
+}
+
+.myth-box h3 {
+  margin: 0 0 3px 0;
+  color: #005b82;
+  font-size: 9.8px;
+}
+
+.bonus-box {
+  background: #ecfdf5;
+  border: 1px solid #6ee7b7;
+  border-left: 4px solid #059669;
+  padding: 7px 11px;
+  border-radius: 0 4px 4px 0;
+  margin-bottom: 8px;
+}
+
+.bonus-box h3 {
+  margin: 0 0 3px 0;
+  color: #065f46;
+  font-size: 9.8px;
+}
+
+.compare-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.compare-no {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  border-radius: 5px;
+  padding: 7px 10px;
+}
+
+.compare-no h4 {
+  margin: 0 0 4px 0;
+  color: #b91c1c;
+  font-size: 9.4px;
+}
+
+.compare-yes {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 5px;
+  padding: 7px 10px;
+}
+
+.compare-yes h4 {
+  margin: 0 0 4px 0;
+  color: #15803d;
+  font-size: 9.4px;
+}
+
+.role-card {
+  border: 1px solid #d5e1ea;
+  border-radius: 5px;
+  padding: 6.5px 10px;
+  margin-bottom: 6px;
+  background: #ffffff;
+  page-break-inside: avoid;
+}
+
+.role-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  border-bottom: 1px solid #edf2f7;
+  padding-bottom: 2px;
+  margin-bottom: 3px;
+}
+
+.role-title {
+  font-size: 9.8px;
+  font-weight: 700;
+  color: #005b82;
+}
+
+.role-tag {
+  font-size: 8.2px;
+  font-weight: 700;
+  color: #047857;
+  background: #ecfdf5;
+  padding: 1.5px 6px;
+  border-radius: 3px;
+  border: 1px solid #a7f3d0;
+}
+
+.entity-card {
+  border: 1px solid #d5e1ea;
+  border-radius: 5px;
+  padding: 6.5px 10px;
+  margin-bottom: 6px;
+  background: #ffffff;
+  page-break-inside: avoid;
+}
+
+.entity-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px 10px;
+  margin-top: 3px;
+}
+
+.entity-meta {
+  font-size: 8.5px;
+  background: #f8fafc;
+  padding: 4.5px 7px;
+  border-radius: 3px;
+  border: 1px solid #e2e8f0;
+}
+
+.entity-action {
+  font-size: 8.5px;
+  background: #f0f9ff;
+  padding: 4.5px 7px;
+  border-radius: 3px;
+  border: 1px solid #bae6fd;
+}
+
+.steps-box {
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 5px;
+  padding: 7px 11px;
+  margin-bottom: 7px;
+  page-break-inside: avoid;
+}
+
+.steps-box ol {
+  margin: 3px 0 0 0;
+  padding-left: 16px;
+}
+
+.steps-box li {
+  margin-bottom: 2.5px;
+}
+
+.email-template {
+  background: #f8fafc;
+  border: 1.5px solid #005b82;
+  border-radius: 5px;
+  padding: 7px 11px;
+  font-size: 8.6px;
+  line-height: 1.38;
+  page-break-inside: avoid;
+}
+
+.email-template h3 {
+  margin: 0 0 3px 0;
+  color: #005b82;
+  font-size: 9.6px;
+}
+
+.email-subject {
+  margin: 0 0 4px 0;
+}
+
+.email-body {
+  margin: 0;
+}
+
+ul.compact {
+  margin: 2px 0 0 0;
+  padding-left: 14px;
+}
+
+ul.compact li {
+  margin-bottom: 1.5px;
+}
+
+.page-break {
+  page-break-before: always;
+}
