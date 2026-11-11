@@ -123,16 +123,25 @@ jobs:
           esac
           echo "✅ Zweryfikowano docelową ścieżkę wdrożenia SFTP."
 
-      - name: 3.5 Bezpieczny transfer SFTP na serwer hostingowy LH
-        uses: wlixcc/SFTP-Deploy-Action@v1.2.4
-        with:
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          server: ${{ secrets.FTP_SERVER }}
-          port: ${{ secrets.FTP_PORT }}
-          local_path: './dist/*'
+      - name: 3.5 Bezpieczny transfer SFTP/SSH na serwer hostingowy LH (wraz z .htaccess i .well-known)
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SFTP_SERVER: ${{ secrets.FTP_SERVER }}
+          SFTP_PORT: ${{ secrets.FTP_PORT }}
+          SFTP_USER: ${{ secrets.FTP_USERNAME }}
           remote_path: ${{ secrets.SFTP_REMOTE_PATH }}
-          sftpArgs: '-o ConnectTimeout=60'
+        run: |
+          set -euo pipefail
+          if [ -z "${SSH_PRIVATE_KEY:-}" ]; then
+            echo "::error::Sekret SSH_PRIVATE_KEY jest pusty! Wdrożenie zatrzymane."
+            exit 1
+          fi
+          install -m 600 /dev/null /tmp/lh_deploy_key
+          trap 'rm -f /tmp/lh_deploy_key' EXIT INT TERM
+          printf '%s\n' "$SSH_PRIVATE_KEY" > /tmp/lh_deploy_key
+          rsync -avz --chmod=Du=rwx,Dg=rx,Do=rx,Fu=rw,Fg=r,Fo=r \
+            -e "ssh -i /tmp/lh_deploy_key -p ${SFTP_PORT:-40022} -o StrictHostKeyChecking=accept-new -o BatchMode=yes -o ConnectTimeout=30" \
+            ./dist/ "${SFTP_USER}@${SFTP_SERVER}:${remote_path}/"
 
       - name: 3.6 Czyszczenie cache Cloudflare CDN (opcjonalnie)
         if: env.CF_ZONE != '' && env.CF_TOKEN != ''
