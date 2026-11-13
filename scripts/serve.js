@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Lekki, bezbiblioteczny i utwardzony serwer HTTP do lokalnego podglądu CV (pawel-krzewinski-cv).
  * Zero zewnętrznych zależności - wykorzystuje wbudowany moduł node:http.
@@ -39,7 +41,9 @@ const SECURITY_HEADERS = {
   'Referrer-Policy': 'strict-origin-when-cross-origin',
   'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
   'Cross-Origin-Resource-Policy': 'same-site',
-  'Permissions-Policy': 'accelerometer=(), camera=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), payment=(), usb=()',
+  'X-Permitted-Cross-Domain-Policies': 'none',
+  'Permissions-Policy':
+    'accelerometer=(), autoplay=(), camera=(), display-capture=(), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), usb=()',
   'Content-Security-Policy':
     "default-src 'self'; script-src 'self' 'inline-speculation-rules'; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data:; connect-src 'self'; manifest-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'self'",
 };
@@ -51,6 +55,7 @@ const BLOCKED_TOP_DIRS = new Set([
   'node_modules',
   'docs',
   'coverage',
+  'dist',
 ]);
 
 const BLOCKED_FILENAMES = new Set([
@@ -65,7 +70,7 @@ const BLOCKED_FILENAMES = new Set([
 ]);
 
 const BLOCKED_EXTENSIONS_PATTERN =
-  /\.(pem|key|pfx|p12|kdbx|sqlite[0-9]*|db|sql|php[0-9]*|phtml|phar|cgi|pl|py|sh|bat|cmd|ps1|bak|old|orig|tmp|swp|log|yml|yaml|toml|ini|conf)$/i;
+  /\.(pem|key|pfx|p12|kdbx|sqlite[0-9]*|db|db-wal|db-shm|sql|csv|json|php[0-9]*|phtml|phar|cgi|pl|py|sh|bat|cmd|ps1|bak|old|orig|tmp|swp|log|yml|yaml|toml|ini|conf)$/i;
 
 const BLOCKED_SECRET_NAME_PATTERN = /(^|[\/\\])(.*token.*\.json|.*credentials.*\.json)$/i;
 
@@ -156,6 +161,15 @@ function resolveSafeFilePath(rawUrl = '/', rootDir = ROOT_DIR) {
   return { filePath, isAllowed, isMalformed: false };
 }
 
+function isCrossSiteSubrequest(headers = {}) {
+  const fetchSite = String(headers['sec-fetch-site'] || '').toLowerCase();
+  const fetchMode = String(headers['sec-fetch-mode'] || '').toLowerCase();
+  if (fetchSite === 'cross-site' && fetchMode !== '' && fetchMode !== 'navigate') {
+    return true;
+  }
+  return false;
+}
+
 const server = http.createServer((req, res) => {
   if (req.method !== 'GET' && req.method !== 'HEAD') {
     res.writeHead(405, {
@@ -164,6 +178,15 @@ const server = http.createServer((req, res) => {
       ...SECURITY_HEADERS,
     });
     res.end('405 Metoda niedozwolona');
+    return;
+  }
+
+  if (isCrossSiteSubrequest(req.headers)) {
+    res.writeHead(403, {
+      'Content-Type': 'text/plain; charset=utf-8',
+      ...SECURITY_HEADERS,
+    });
+    res.end('403 Cross-Site Request Blocked');
     return;
   }
 
@@ -240,4 +263,5 @@ module.exports = {
   MIME_TYPES,
   SECURITY_HEADERS,
   resolveSafeFilePath,
+  isCrossSiteSubrequest,
 };

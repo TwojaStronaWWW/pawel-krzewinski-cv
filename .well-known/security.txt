@@ -1,6 +1,6 @@
 Contact: mailto:pawelkrzewinski1982@gmail.com
 Contact: https://github.com/TwojaStronaWWW/pawel-krzewinski-cv/security/advisories
-Expires: 2027-12-31T23:59:00.000Z
+Expires: 2027-12-31T23:59:59.000Z
 Preferred-Languages: pl, en
 Canonical: https://pawelkrzewinski.pl/.well-known/security.txt
 Policy: https://github.com/TwojaStronaWWW/pawel-krzewinski-cv/blob/main/SECURITY.md

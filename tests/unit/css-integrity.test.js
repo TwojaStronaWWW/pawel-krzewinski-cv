@@ -41,8 +41,13 @@ describe('Integralność i składnia arkuszy stylów CSS', () => {
     assert.strictEqual(printOpenParen, printCloseParen, 'Niezbalansowane nawiasy okrągłe w print.css');
   });
 
-  it('główny arkusz powinien definiować spójną paletę zmiennych CSS w :root', () => {
+  it('główny arkusz powinien definiować spójną paletę zmiennych CSS w :root oraz standardy [REF-03] (color-scheme, scrollbar-gutter, text-wrap, @view-transition)', () => {
     assert.match(mainCss, /:root\s*\{/i);
+    assert.match(mainCss, /color-scheme:\s*dark\s+light/i);
+    assert.match(mainCss, /scrollbar-gutter:\s*stable/i);
+    assert.match(mainCss, /@view-transition\s*\{\s*navigation:\s*auto/i);
+    assert.match(mainCss, /text-wrap:\s*balance/i);
+    assert.match(mainCss, /text-wrap:\s*pretty/i);
     assert.match(mainCss, /--color-primary:/i);
     assert.match(mainCss, /--color-text-dark:/i);
     assert.match(mainCss, /--color-text-light:/i);

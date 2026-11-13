@@ -1,9 +1,19 @@
+'use strict';
+
 /**
  * Skrypt interaktywny dla CV Pawła Krzewińskiego (pawel-krzewinski-cv)
  * Obsługa mobilnego menu bocznego oraz akcji drukowania / generowania PDF ([data-action="print"]).
  */
 
 const MOBILE_BREAKPOINT = 900;
+
+function announceA11yStatus(doc, message) {
+  if (!doc || typeof doc.getElementById !== 'function') return;
+  const statusEl = doc.getElementById('a11y-status');
+  if (statusEl) {
+    statusEl.textContent = message;
+  }
+}
 
 function initSidebar(
   doc = (typeof document !== 'undefined' ? document : null),
@@ -27,6 +37,7 @@ function initSidebar(
       sidebar.classList.remove('active');
       toggleBtn.setAttribute('aria-expanded', 'false');
       toggleBtn.textContent = 'Menu';
+      announceA11yStatus(doc, 'Menu boczne zamknięte');
       if (typeof toggleBtn.focus === 'function') {
         toggleBtn.focus();
       }
@@ -37,6 +48,7 @@ function initSidebar(
     const isExpanded = sidebar.classList.toggle('active');
     toggleBtn.setAttribute('aria-expanded', String(isExpanded));
     toggleBtn.textContent = isExpanded ? 'Ukryj menu' : 'Menu';
+    announceA11yStatus(doc, isExpanded ? 'Menu boczne otwarte' : 'Menu boczne zamknięte');
   };
 
   const handleOutsideClick = (e) => {

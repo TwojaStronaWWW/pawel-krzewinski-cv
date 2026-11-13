@@ -43,11 +43,12 @@
   <meta name="twitter:description" content="18+ lat doświadczenia w logistyce i gospodarce magazynowej (INTROL, Consorfrut, Royal FloraHolland), obsługa ERP Impuls EVO i Subiekt, UDT II WJO, księgowość i kadry (128h MEN) oraz zaplecze IT (Technik Informatyk, ECCC 94%).">
   <meta name="twitter:image" content="https://pawelkrzewinski.pl/assets/images/og-preview.png?v=1">
 
-  <!-- Dane strukturalne Schema.org -->
+  <!-- [REF-08] Dane strukturalne Schema.org (pełny graf @graph: Person + WebSite + ProfilePage) -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Person",
+    "@id": "https://pawelkrzewinski.pl/#person",
     "name": "Paweł Krzewiński",
     "jobTitle": "Specjalista ds. Gospodarki Magazynowej i Logistyki | Systemy ERP (Impuls EVO) | Technik Informatyk",
     "url": "https://pawelkrzewinski.pl",
@@ -73,6 +74,64 @@
       "ECCC Kompetencje Cyfrowe",
       "Wsparcie techniczne IT (Helpdesk L1)",
       "Inwentaryzacja i obrót materiałowy"
+    ],
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": "https://pawelkrzewinski.pl/#person",
+        "name": "Paweł Krzewiński",
+        "jobTitle": "Specjalista ds. Gospodarki Magazynowej i Logistyki | Systemy ERP (Impuls EVO) | Technik Informatyk",
+        "url": "https://pawelkrzewinski.pl",
+        "image": "https://pawelkrzewinski.pl/assets/images/photo.jpg",
+        "email": "mailto:pawelkrzewinski1982@gmail.com",
+        "telephone": "+48792130149",
+        "address": {
+          "@type": "PostalAddress",
+          "postalCode": "40-139",
+          "addressLocality": "Katowice",
+          "addressRegion": "Śląsk",
+          "addressCountry": "PL"
+        },
+        "knowsAbout": [
+          "Gospodarka magazynowa",
+          "Impuls EVO",
+          "InsERT Subiekt",
+          "UDT II WJO",
+          "Voice Picking",
+          "Logistyka i spedycja",
+          "Księgowość oraz kadry i płace",
+          "Program Płatnik",
+          "ECCC Kompetencje Cyfrowe",
+          "Wsparcie techniczne IT (Helpdesk L1)",
+          "Inwentaryzacja i obrót materiałowy"
+        ]
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://pawelkrzewinski.pl/#website",
+        "url": "https://pawelkrzewinski.pl/",
+        "name": "Paweł Krzewiński – Curriculum Vitae",
+        "inLanguage": "pl-PL",
+        "publisher": {
+          "@id": "https://pawelkrzewinski.pl/#person"
+        }
+      },
+      {
+        "@type": "ProfilePage",
+        "@id": "https://pawelkrzewinski.pl/#profilepage",
+        "url": "https://pawelkrzewinski.pl/",
+        "name": "Paweł Krzewiński – Specjalista ds. Gospodarki Magazynowej, Logistyki & ERP | CV",
+        "isPartOf": {
+          "@id": "https://pawelkrzewinski.pl/#website"
+        },
+        "about": {
+          "@id": "https://pawelkrzewinski.pl/#person"
+        },
+        "mainEntity": {
+          "@id": "https://pawelkrzewinski.pl/#person"
+        },
+        "inLanguage": "pl-PL"
+      }
     ]
   }
   </script>
@@ -81,6 +140,7 @@
 
 <body>
   <a href="#main-content" class="skip-link">Przejdź do głównej treści CV</a>
+  <div id="a11y-status" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
   <button type="button" class="toggle-menu" id="toggleBtn" aria-expanded="false" aria-controls="sidebar">
     Menu
   </button>
@@ -88,7 +148,7 @@
   <div class="container">
     <aside id="sidebar" aria-label="Informacje kontaktowe i umiejętności">
       <header>
-        <img src="assets/images/photo.jpg" alt="Zdjęcie profilowe - Paweł Krzewiński" class="profile-photo" width="180" height="225">
+        <img src="assets/images/photo.jpg" alt="Zdjęcie profilowe - Paweł Krzewiński" class="profile-photo" width="180" height="225" fetchpriority="high" decoding="async">
         <h1>Paweł Krzewiński</h1>
         <p class="occupation">Specjalista ds. Gospodarki Magazynowej i Logistyki | Systemy ERP (Impuls EVO) | Technik Informatyk &amp; Elektryk</p>
       </header>
@@ -276,7 +336,8 @@
             { "href_matches": "/*" },
             { "not": { "href_matches": "/api/*" } },
             { "not": { "href_matches": "/assets/php/*" } },
-            { "not": { "href_matches": "/admin/*" } }
+            { "not": { "href_matches": "/admin/*" } },
+            { "not": { "selector_matches": "[aria-hidden=\"true\"], [data-bot-trap]" } }
           ]
         },
         "eagerness": "moderate"

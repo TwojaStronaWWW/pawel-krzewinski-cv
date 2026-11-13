@@ -35,7 +35,9 @@ describe('Moduł UI (assets/js/main.js)', () => {
       assert.strictEqual(result.sidebar, sidebar);
     });
 
-    it('powinien otworzyć sidebar (dodać klasę active, aria-expanded=true, tekst "Ukryj menu") po kliknięciu', () => {
+    it('powinien otworzyć sidebar (dodać klasę active, aria-expanded=true, tekst "Ukryj menu") po kliknięciu i zaktualizować #a11y-status', () => {
+      const statusEl = new MockElement('a11y-status', 'div');
+      mockDoc.registerElement(statusEl);
       initSidebar(mockDoc);
 
       toggleBtn.click();
@@ -43,6 +45,7 @@ describe('Moduł UI (assets/js/main.js)', () => {
       assert.strictEqual(sidebar.classList.contains('active'), true);
       assert.strictEqual(toggleBtn.getAttribute('aria-expanded'), 'true');
       assert.strictEqual(toggleBtn.textContent, 'Ukryj menu');
+      assert.strictEqual(statusEl.textContent, 'Menu boczne otwarte');
     });
 
     it('powinien zamknąć sidebar (usunąć active, aria-expanded=false, tekst "Menu") po ponownym kliknięciu', () => {

@@ -106,6 +106,13 @@ describe('Integralność semantyczna i SEO (index.html)', () => {
       assert.ok(schema.knowsAbout.includes('UDT II WJO'));
       assert.ok(schema.knowsAbout.includes('Gospodarka magazynowa'));
       assert.ok(schema.knowsAbout.includes('Voice Picking'));
+
+      // [REF-08] Weryfikacja pełnego grafu @graph (Person + WebSite + ProfilePage)
+      assert.ok(Array.isArray(schema['@graph']), 'Blok JSON-LD powinien zawierać pełny graf @graph ([REF-08])');
+      const graphTypes = schema['@graph'].map((node) => node['@type']);
+      assert.ok(graphTypes.includes('Person'), 'Graf @graph musi zawierać węzeł Person');
+      assert.ok(graphTypes.includes('WebSite'), 'Graf @graph musi zawierać węzeł WebSite');
+      assert.ok(graphTypes.includes('ProfilePage'), 'Graf @graph musi zawierać węzeł ProfilePage');
     });
   });
 
@@ -117,7 +124,7 @@ describe('Integralność semantyczna i SEO (index.html)', () => {
       assert.match(h1Matches[0], /Paweł Krzewiński/i);
     });
 
-    it('wszystkie znaczniki <img> powinny posiadać atrybuty alt, width oraz height dla CLS/a11y', () => {
+    it('wszystkie znaczniki <img> powinny posiadać atrybuty alt, width oraz height dla CLS/a11y oraz fetchpriority="high" na głównym zdjęciu LCP ([REF-02])', () => {
       const imgRegex = /<img\s+([^>]+)>/gi;
       let match;
       let count = 0;
@@ -129,11 +136,13 @@ describe('Integralność semantyczna i SEO (index.html)', () => {
         assert.match(imgAttributes, /height="[^"]*"/i, `Obraz ${match[0]} nie posiada atrybutu height`);
       }
       assert.ok(count > 0, 'Powinien istnieć co najmniej jeden znacznik <img> (np. zdjęcie profilowe)');
+      assert.match(htmlContent, /<img[^>]+fetchpriority="high"/i, 'Główne zdjęcie LCP powinno posiadać fetchpriority="high" ([REF-02])');
     });
 
-    it('przycisk mobilnego menu powinien posiadać atrybuty ARIA (aria-expanded, aria-controls)', () => {
+    it('przycisk mobilnego menu powinien posiadać atrybuty ARIA (aria-expanded, aria-controls) oraz region statusu aria-live ([REF-04])', () => {
       assert.match(htmlContent, /<button[^>]+id="toggleBtn"[^>]+aria-controls="sidebar"/i);
       assert.match(htmlContent, /<button[^>]+id="toggleBtn"[^>]+aria-expanded="false"/i);
+      assert.match(htmlContent, /id="a11y-status"[^>]+role="status"[^>]+aria-live="polite"/i);
     });
 
     it('panel boczny <aside id="sidebar"> powinien posiadać etykietę dostępności aria-label', () => {

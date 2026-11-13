@@ -53,7 +53,7 @@ AddDefaultCharset UTF-8
 # ------------------------------------------------------------------------------
 # 3. Blokada plików wrażliwych, sekretów, baz danych i skryptów serwerowych
 # ------------------------------------------------------------------------------
-<FilesMatch "(?i)(^\.env|^\.git|^\.htaccess|^\.htpasswd|^\.npmrc|^\.gitleaks\.toml|^\.lighthouserc\.json|^\.editorconfig|^\.gitattributes|^package(-lock)?\.json$|^composer\.(json|lock)$|^(AGENTS|GEMINI|README|SECURITY)\.md$|\.(pem|key|pfx|p12|kdbx|sqlite[0-9]*|db|sql|bak|old|orig|tmp|swp|log|sh|yml|yaml|toml|ini|conf|php[0-9]*|phtml|phar|cgi|pl|py))$">
+<FilesMatch "(?i)(^\.env|^\.git|^\.htaccess|^\.htpasswd|^\.npmrc|^\.gitleaks\.toml|^\.lighthouserc\.json|^\.editorconfig|^\.gitattributes|^package(-lock)?\.json$|^composer\.(json|lock)$|^(AGENTS|GEMINI|README|SECURITY)\.md$|\.(pem|key|pfx|p12|kdbx|sqlite[0-9]*|db|db-wal|db-shm|sql|csv|json|bak|old|orig|tmp|swp|log|sh|ps1|bat|cmd|yml|yaml|toml|ini|conf|php[0-9]*|phtml|phar|cgi|pl|py))$">
   <IfModule mod_authz_core.c>
     Require all denied
   </IfModule>
@@ -109,4 +109,10 @@ AddDefaultCharset UTF-8
   ExpiresByType image/jpeg                            "access plus 6 months"
   ExpiresByType image/svg+xml                         "access plus 6 months"
   ExpiresByType font/woff2                            "access plus 1 year"
+</IfModule>
+
+<IfModule mod_headers.c>
+  <FilesMatch "^sw\.js$">
+    Header set Cache-Control "no-cache, no-store, must-revalidate"
+  </FilesMatch>
 </IfModule>

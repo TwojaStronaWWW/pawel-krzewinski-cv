@@ -1,7 +1,7 @@
 # Paweł Krzewiński — Specjalista ds. Gospodarki Magazynowej, Logistyki & Systemów ERP | CV
 
 [![CI/CD Pipeline](https://img.shields.io/badge/CI%2FCD%20Pipeline-passing-brightgreen)](.github/workflows/deploy.yml)
-[![Unit Tests](https://img.shields.io/badge/Unit%20Tests-78%20passed-success)](tests/unit)
+[![Unit Tests](https://img.shields.io/badge/Unit%20Tests-96%20passed-success)](tests/unit)
 [![WCAG 2.2](https://img.shields.io/badge/WCAG%202.2-AA%20Compliant-blue)](index.html)
 [![ISO 27001](https://img.shields.io/badge/Security-ISO%2FIEC%2027001-005b82)](SECURITY.md)
 
@@ -43,10 +43,10 @@ Projekt został zbudowany na bazie wzorca architektonicznego `Moje-CV` / `_site-
 ## 💻 Komendy Deweloperskie
 
 ```bash
-# 1. Uruchomienie wszystkich 78 testów jednostkowych
+# 1. Uruchomienie wszystkich 96 testów jednostkowych
 npm test
 
-# 2. Pełna brama jakościowa (składnia JS + 78 testów jednostkowych)
+# 2. Pełna brama jakościowa (składnia JS + 96 testów jednostkowych)
 npm run check
 
 # 3. Kompilacja oficjalnego pliku PDF (dist/Pawel_Krzewinski_CV.pdf)

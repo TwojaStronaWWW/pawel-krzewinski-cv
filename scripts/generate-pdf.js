@@ -1,3 +1,5 @@
+'use strict';
+
 /**
  * Skrypt generowania oficjalnego pliku PDF dla CV Pawła Krzewińskiego.
  * Wykorzystuje natywny silnik Chromium (Edge na Windows, Chrome/Chromium na Linux w CI/CD).

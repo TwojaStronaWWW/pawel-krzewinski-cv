@@ -3,7 +3,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const http = require('node:http');
 const path = require('node:path');
-const { server, resolveSafeFilePath, SECURITY_HEADERS } = require('../../scripts/serve');
+const { server, resolveSafeFilePath, isCrossSiteSubrequest, SECURITY_HEADERS } = require('../../scripts/serve');
 
 const ROOT_DIR = path.join(__dirname, '..', '..');
 
@@ -67,13 +67,16 @@ describe('Regresja Bezpieczeństwa i Threat Protection (ISO 27001 / OWASP / DevS
       assert.doesNotMatch(htaccess, /unsafe-inline/i);
     });
 
-    it('powinien chronić przed PHP2Shell w QUERY_STRING oraz blokować pliki .git, .env, .sqlite, .pem, .key, package.json i .gitleaks.toml (zachowując .well-known)', () => {
+    it('powinien chronić przed PHP2Shell w QUERY_STRING oraz blokować pliki .git, .env, .sqlite, .db-wal, .csv, .pem, .key, package.json i .gitleaks.toml (zachowując .well-known)', () => {
       assert.match(htaccess, /auto_prepend_file/);
       assert.match(htaccess, /allow_url_include/);
       assert.match(htaccess, /\(\?!\\\.well-known\/\)/);
       assert.match(htaccess, /\\\.env/);
       assert.match(htaccess, /\\\.git/);
       assert.match(htaccess, /sqlite/);
+      assert.match(htaccess, /db-wal/);
+      assert.match(htaccess, /db-shm/);
+      assert.match(htaccess, /csv/);
       assert.match(htaccess, /pem\|key/);
       assert.match(htaccess, /package\(-lock\)\?\\\.json/);
       assert.match(htaccess, /\\\.gitleaks\\\.toml/);
@@ -119,6 +122,13 @@ describe('Regresja Bezpieczeństwa i Threat Protection (ISO 27001 / OWASP / DevS
       assert.strictEqual(resolveSafeFilePath('/%E0%A4%A', ROOT_DIR).isMalformed, true);
       assert.strictEqual(resolveSafeFilePath('/index.html%00.jpg', ROOT_DIR).isMalformed, true);
       assert.strictEqual(resolveSafeFilePath('/index.html\0', ROOT_DIR).isMalformed, true);
+    });
+
+    it('[REF-05] isCrossSiteSubrequest powinien blokować podżądania cross-site (Sec-Fetch-Site: cross-site), zezwalając na nawigację top-level', () => {
+      assert.strictEqual(isCrossSiteSubrequest({ 'sec-fetch-site': 'cross-site', 'sec-fetch-mode': 'cors' }), true);
+      assert.strictEqual(isCrossSiteSubrequest({ 'sec-fetch-site': 'cross-site', 'sec-fetch-mode': 'no-cors' }), true);
+      assert.strictEqual(isCrossSiteSubrequest({ 'sec-fetch-site': 'cross-site', 'sec-fetch-mode': 'navigate' }), false);
+      assert.strictEqual(isCrossSiteSubrequest({ 'sec-fetch-site': 'same-origin', 'sec-fetch-mode': 'cors' }), false);
     });
 
     it('resolveSafeFilePath powinien zezwalać na publiczne zasoby CV oraz /.well-known/security.txt', () => {
@@ -201,7 +211,7 @@ describe('Regresja Bezpieczeństwa i Threat Protection (ISO 27001 / OWASP / DevS
           .map((f) => path.join(ROOT_DIR, 'documents', f)),
       ];
 
-      for (const filePath of htmlFiles) {
+        for (const filePath of htmlFiles) {
         const rel = path.relative(ROOT_DIR, filePath);
         const content = fs.readFileSync(filePath, 'utf-8');
 
@@ -209,6 +219,8 @@ describe('Regresja Bezpieczeństwa i Threat Protection (ISO 27001 / OWASP / DevS
         assert.doesNotMatch(content, /<style[\s>]/i, `Wykryto osadzony blok <style> w ${rel} (wymagany zewnętrzny plik .css)`);
         assert.doesNotMatch(content, /\son[a-z]+\s*=\s*["']/i, `Wykryto niedozwolony handler inline on*="..." w ${rel}`);
         assert.doesNotMatch(content, /\bpesel\b/i, `Wykryto słowo PESEL w publicznym pliku HTML (${rel}) — naruszenie RODO`);
+        assert.match(content, /<a\s+href="#main-content"\s+class="skip-link">/i, `Brak .skip-link WCAG 2.2 AA w ${rel}`);
+        assert.match(content, /<main\s+id="main-content"[\s>]/i, `Brak <main id="main-content"> w ${rel}`);
       }
     });
   });

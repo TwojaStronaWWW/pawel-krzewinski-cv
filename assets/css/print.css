@@ -17,6 +17,7 @@
 }
 
 :root {
+	color-scheme: light;
 	--color-primary: #005b82;
 	--color-text-dark: #1a1a1a;
 	--color-text-light: #555;
@@ -250,6 +251,7 @@ article {
 button,
 .toggle-menu,
 .btn-print,
-.skip-link {
+.skip-link,
+.sr-only {
 	display: none !important;
 }
